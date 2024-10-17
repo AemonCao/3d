@@ -65,9 +65,17 @@ const clock = new THREE.Clock()
 const render = () => {
 
     const elapsedTime = clock.getElapsedTime()
-    group.rotation.y = elapsedTime
-    group.rotation.x = elapsedTime
-    group.rotation.z = elapsedTime
+    // group.rotation.y = elapsedTime * Math.PI * 2
+    // group.rotation.x = elapsedTime * Math.PI * 2
+    // group.rotation.z = elapsedTime * Math.PI * 2
+
+    // group.position.y = Math.sin(elapsedTime)
+    // group.position.x = Math.cos(elapsedTime)
+
+    camera.position.x = Math.cos(elapsedTime)
+    camera.position.y = Math.sin(elapsedTime)
+    camera.lookAt(group.position)
+
     renderer.render(scene, camera)
     window.requestAnimationFrame(render)
 }

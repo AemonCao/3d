@@ -60,16 +60,14 @@ renderer.setSize(sizes.width, sizes.height)
 
 renderer.render(scene, camera)
 
-let time = Date.now()
+const clock = new THREE.Clock()
 
 const render = () => {
 
-    const now = Date.now()
-    const deltaTime = now - time
-    time = now
-    console.log(deltaTime);
-    group.rotation.y += 0.002 * deltaTime
-    group.rotation.x += 0.002 * deltaTime
+    const elapsedTime = clock.getElapsedTime()
+    group.rotation.y = elapsedTime
+    group.rotation.x = elapsedTime
+    group.rotation.z = elapsedTime
     renderer.render(scene, camera)
     window.requestAnimationFrame(render)
 }

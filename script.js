@@ -3,7 +3,7 @@ import * as THREE from 'three'
 
 const sizes = {
     width: 800,
-    height: 800
+    height: 600
 }
 
 const cursor = {
@@ -81,9 +81,9 @@ const render = () => {
     // group.rotation.y = clock.getElapsedTime()
 
     // 更新相机位置
-    camera.position.x = cursor.x * 10
-    camera.position.y = cursor.y * 10
-    // camera.lookAt(new THREE.Vector3())
+    camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 2
+    camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 2
+    camera.position.y = cursor.y * 3
     camera.lookAt(group.position)
     renderer.render(scene, camera)
     window.requestAnimationFrame(render)

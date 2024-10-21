@@ -1,5 +1,20 @@
 import * as THREE from 'three'
-import gsap from 'gsap'
+
+
+const sizes = {
+    width: 800,
+    height: 600
+}
+
+const cursor = {
+    x: 0,
+    y: 0
+}
+
+window.addEventListener('mousemove',(event) => {
+    cursor.x = event.clientX / sizes.width - 0.5
+    cursor.y = - (event.clientY / sizes.height - 0.5)
+})
 
 const canvas = document.querySelector('canvas.webgl')
 
@@ -44,13 +59,14 @@ group.add(cube3)
 const axesHelper = new THREE.AxesHelper(1)
 scene.add(axesHelper)
 
-const sizes = {
-    width: 800,
-    height: 600
-}
 
-const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height)
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height,0.1,100)
+// const aspectRatio = sizes.width / sizes.height
+// const  camera = new THREE.OrthographicCamera(-1 * aspectRatio,1 * aspectRatio,-1,1,0.1,100)
+// camera.position.x = 2
+// camera.position.y = 2
 camera.position.z = 3
+camera.lookAt(group.position)
 scene.add(camera)
 
 const renderer = new THREE.WebGLRenderer({
@@ -59,25 +75,16 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setSize(sizes.width, sizes.height)
 
-gsap.to(group.position,{
-    x: 2,
-    duration: 1,
-    delay: 1
-})
-
-gsap.to(group.position,{
-    x: -2,
-    duration: 1,
-    delay: 2
-})
-
-gsap.to(group.position,{
-    x: 0,
-    duration: 1,
-    delay: 3
-})
+// const clock = new THREE.Clock()
 
 const render = () => {
+    // group.rotation.y = clock.getElapsedTime()
+
+    // 更新相机位置
+    camera.position.x = cursor.x * 3
+    camera.position.y = cursor.y * 3
+    // camera.lookAt(group.position)
+
     renderer.render(scene, camera)
     window.requestAnimationFrame(render)
 }

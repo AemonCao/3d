@@ -22,14 +22,26 @@ window.addEventListener('resize', () => {
 
 window.addEventListener('dblclick', () => {
     const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement // 兼容性处理
-    if(!fullscreenElement){
-        canvas.requestFullscreen().then(()=>{
-            console.log('进入全屏')
-        })
-    }else{
-        document.exitFullscreen().then(()=>{
-            console.log('退出全屏')
-        })
+    if(!fullscreenElement) {
+        if(canvas.requestFullscreen) {
+            canvas.requestFullscreen().then(() => {
+                console.log('进入全屏')
+            })
+        } else if(canvas.webkitRequestFullscreen) {
+            canvas.webkitRequestFullscreen().then(() => {
+                console.log('进入全屏')
+            })
+        }
+    } else {
+        if(document.fullscreenElement) {
+            document.exitFullscreen().then(() => {
+                console.log('退出全屏')
+            })
+        } else if(document.webkitExitFullscreen) {
+            document.webkitExitFullscreen().then(() => {
+                console.log('退出全屏')
+            })
+        }
     }
 })
 

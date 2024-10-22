@@ -1,9 +1,10 @@
+import './style.css'
 import * as THREE from 'three'
 import {OrbitControls} from "three/addons";
 
 const sizes = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,
+    height: window.innerHeight
 }
 
 const cursor = {

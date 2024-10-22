@@ -21,7 +21,8 @@ window.addEventListener('resize', () => {
 })
 
 window.addEventListener('dblclick', () => {
-    if(!document.fullscreenElement){
+    const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement // 兼容性处理
+    if(!fullscreenElement){
         canvas.requestFullscreen().then(()=>{
             console.log('进入全屏')
         })

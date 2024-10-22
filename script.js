@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-
+import {OrbitControls} from "three/addons";
 
 const sizes = {
     width: 800,
@@ -11,12 +11,13 @@ const cursor = {
     y: 0
 }
 
-window.addEventListener('mousemove',(event) => {
-    cursor.x = event.clientX / sizes.width - 0.5
-    cursor.y = - (event.clientY / sizes.height - 0.5)
-})
+// window.addEventListener('mousemove',(event) => {
+//     cursor.x = event.clientX / sizes.width - 0.5
+//     cursor.y = - (event.clientY / sizes.height - 0.5)
+// })
 
 const canvas = document.querySelector('canvas.webgl')
+
 
 const scene = new THREE.Scene()
 
@@ -69,6 +70,10 @@ camera.position.z = 3
 camera.lookAt(group.position)
 scene.add(camera)
 
+const orbitControls = new OrbitControls(camera, canvas)
+orbitControls.enableDamping = true
+scene.add(orbitControls)
+
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
@@ -81,10 +86,14 @@ const render = () => {
     // group.rotation.y = clock.getElapsedTime()
 
     // 更新相机位置
-    camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 2
-    camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 2
-    camera.position.y = cursor.y * 3
-    camera.lookAt(group.position)
+    // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 2
+    // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 2
+    // camera.position.y = cursor.y * 3
+    // camera.lookAt(group.position)
+
+    // 更新控制器
+    orbitControls.update()
+
     renderer.render(scene, camera)
     window.requestAnimationFrame(render)
 }

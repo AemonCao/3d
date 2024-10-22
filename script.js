@@ -2,6 +2,8 @@ import './style.css'
 import * as THREE from 'three'
 import {OrbitControls} from "three/addons";
 
+const canvas = document.querySelector('canvas.webgl')
+
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
@@ -18,6 +20,18 @@ window.addEventListener('resize', () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+window.addEventListener('dblclick', () => {
+    if(!document.fullscreenElement){
+        canvas.requestFullscreen().then(()=>{
+            console.log('进入全屏')
+        })
+    }else{
+        document.exitFullscreen().then(()=>{
+            console.log('退出全屏')
+        })
+    }
+})
+
 const cursor = {
     x: 0,
     y: 0
@@ -27,8 +41,6 @@ const cursor = {
 //     cursor.x = event.clientX / sizes.width - 0.5
 //     cursor.y = - (event.clientY / sizes.height - 0.5)
 // })
-
-const canvas = document.querySelector('canvas.webgl')
 
 
 const scene = new THREE.Scene()

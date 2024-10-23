@@ -50,16 +50,27 @@ const cursor = {
     y: 0
 }
 
-// window.addEventListener('mousemove',(event) => {
-//     cursor.x = event.clientX / sizes.width - 0.5
-//     cursor.y = - (event.clientY / sizes.height - 0.5)
-// })
-
-
 const scene = new THREE.Scene()
+
+const positionsArray = new Float32Array([
+    0, 0, 1,
+    0, 1, 0,
+    1, 0, 0
+])
+
+const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
+
+const geometry = new THREE.BufferGeometry()
+
+geometry.setAttribute('position', positionsAttribute)
 
 const group = new THREE.Group()
 scene.add(group)
+
+group.add(new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
+    color: 0x00ff00,
+    wireframe: true
+})))
 
 const cube1 = new THREE.Mesh(
     new THREE.BoxGeometry(1,1,1),

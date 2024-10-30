@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
-import './style.css'
+import './style/index.css'
 
 const canvas = document.querySelector('canvas.webgl')
 

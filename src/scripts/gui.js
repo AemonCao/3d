@@ -1,51 +1,100 @@
+import gsap from 'gsap'
+import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
 import '../style/index.css'
 
 const canvas = document.querySelector('canvas.webgl')
 
+const gui = new GUI({
+  closeFolders: true,
+  width: 300,
+})
+const debugObject = {}
+
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 }
-
-window.addEventListener('dblclick', () => {
-  const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement // 兼容性处理
-  if (!fullscreenElement) {
-    if (canvas.requestFullscreen) {
-      canvas.requestFullscreen().then(() => {
-      })
-    }
-    else if (canvas.webkitRequestFullscreen) {
-      canvas.webkitRequestFullscreen().then(() => {
-      })
-    }
-  }
-  else {
-    if (document.fullscreenElement) {
-      document.exitFullscreen().then(() => {
-      })
-    }
-    else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen().then(() => {
-      })
-    }
-  }
-})
 
 const scene = new THREE.Scene()
 const group = new THREE.Group()
 
 scene.add(group)
 
+debugObject.color = '#a778d8'
+
 const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.BoxGeometry(1, 1, 1, 2, 2, 2),
   new THREE.MeshBasicMaterial({
-    color: 0xFF0000,
-    wireframe: true,
+    color: debugObject.color,
   }),
 )
 group.add(cube)
+
+const cubeFolder = gui.addFolder('Cube')
+cubeFolder.open()
+
+cubeFolder
+  .add(cube.position, 'x')
+  .min(-3)
+  .max(3)
+  .step(0.01)
+  .name('cubeX')
+
+cubeFolder
+  .add(cube.position, 'y')
+  .min(-3)
+  .max(3)
+  .step(0.01)
+  .name('cubeY')
+
+cubeFolder
+  .add(cube.position, 'z')
+  .min(-3)
+  .max(3)
+  .step(0.01)
+  .name('cubeZ')
+
+cubeFolder
+  .add(cube.material, 'wireframe')
+  .name('cubeWireframe')
+
+cubeFolder
+  .add(cube, 'visible')
+  .name('cubeVisible')
+
+cubeFolder
+  .addColor(debugObject, 'color')
+  .onChange((value) => {
+    cube.material.color.set(value)
+  })
+  .name('cubeColor')
+
+debugObject.spin = () => {
+  gsap.to(cube.rotation, { y: cube.rotation.y + Math.PI * 2, duration: 1 })
+}
+
+cubeFolder
+  .add(debugObject, 'spin')
+
+debugObject.subdivision = 2
+
+cubeFolder.add(debugObject, 'subdivision')
+  .min(1)
+  .max(50)
+  .step(1)
+  .onFinishChange(() => {
+    cube.geometry.dispose()
+    cube.geometry = new THREE.BoxGeometry(
+      1,
+      1,
+      1,
+      debugObject.subdivision,
+      debugObject.subdivision,
+      debugObject.subdivision,
+    )
+  })
 
 // Axes helper
 const axesHelper = new THREE.AxesHelper(1)

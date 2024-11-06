@@ -10,6 +10,9 @@ const gui = new GUI({
   closeFolders: true,
   width: 300,
 })
+
+gui.hide()
+
 const debugObject = {}
 
 const sizes = {
@@ -129,6 +132,12 @@ window.addEventListener('resize', () => {
 
   renderer.setSize(sizes.width, sizes.height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'h') {
+    gui.show(gui._hidden)
+  }
 })
 
 render()

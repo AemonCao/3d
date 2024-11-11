@@ -4,7 +4,18 @@ import doorImage from './../assets/Door_Wood_001_SD/Door_Wood_001_basecolor.jpg'
 import '../style/index.css'
 
 const textureLoader = new THREE.TextureLoader()
-const texture = textureLoader.load(doorImage)
+const texture = textureLoader.load(
+  doorImage,
+  (_texture) => {
+    console.log('Texture loaded', _texture, texture === _texture)
+  },
+  (_event) => {
+    console.log('Texture loading', _event)
+  },
+  (_error) => {
+    console.log('Texture error', _error)
+  },
+)
 
 const canvas = document.querySelector('canvas.webgl')
 

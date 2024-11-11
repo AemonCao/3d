@@ -1,6 +1,13 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
+import doorAmbientOcclusionImage from './../assets/Door_Wood_001_SD/Door_Wood_001_ambientOcclusion.jpg'
 import doorBaseColorImage from './../assets/Door_Wood_001_SD/Door_Wood_001_basecolor.jpg'
+import doorHeightImage from './../assets/Door_Wood_001_SD/Door_Wood_001_height.png'
+import doorMetallicImage from './../assets/Door_Wood_001_SD/Door_Wood_001_metallic.jpg'
+import doorNormalImage from './../assets/Door_Wood_001_SD/Door_Wood_001_normal.jpg'
+import doorOpacityImage from './../assets/Door_Wood_001_SD/Door_Wood_001_opacity.jpg'
+import doorRoughnessImage from './../assets/Door_Wood_001_SD/Door_Wood_001_roughness.jpg'
+
 import '../style/index.css'
 
 const loadingManager = new THREE.LoadingManager()
@@ -11,7 +18,13 @@ loadingManager.onError = _url => console.log('Loading error')
 
 const textureLoader = new THREE.TextureLoader(loadingManager)
 
-const texture = textureLoader.load(doorBaseColorImage)
+const colorTexture = textureLoader.load(doorBaseColorImage)
+const alphaTexture = textureLoader.load(doorOpacityImage)
+const heightTexture = textureLoader.load(doorHeightImage)
+const normalTexture = textureLoader.load(doorNormalImage)
+const ambientOcclusionTexture = textureLoader.load(doorAmbientOcclusionImage)
+const metalnessTexture = textureLoader.load(doorMetallicImage)
+const roughnessTexture = textureLoader.load(doorRoughnessImage)
 
 const canvas = document.querySelector('canvas.webgl')
 
@@ -27,7 +40,7 @@ scene.add(group)
 
 const cube = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1, 2, 2, 2),
-  new THREE.MeshBasicMaterial({ map: texture }),
+  new THREE.MeshBasicMaterial({ map: colorTexture }),
 )
 
 group.add(cube)

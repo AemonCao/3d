@@ -26,6 +26,19 @@ const ambientOcclusionTexture = textureLoader.load(doorAmbientOcclusionImage)
 const metalnessTexture = textureLoader.load(doorMetallicImage)
 const roughnessTexture = textureLoader.load(doorRoughnessImage)
 
+colorTexture.repeat.x = 2 // 2 次的 x 方向重复
+colorTexture.repeat.y = 3 // 3 次的 y 方向重复
+
+colorTexture.wrapS = THREE.MirroredRepeatWrapping // x 方向镜像重复
+colorTexture.wrapT = THREE.MirroredRepeatWrapping // y 方向镜像重复
+
+colorTexture.offset.x = 0.5 // x 方向偏移 0.5
+colorTexture.offset.y = 0.5 // y 方向偏移 0.5
+
+colorTexture.rotation = Math.PI / 4
+colorTexture.center.x = 0.5
+colorTexture.center.y = 0.5
+
 const canvas = document.querySelector('canvas.webgl')
 
 const sizes = {
@@ -38,8 +51,13 @@ const group = new THREE.Group()
 
 scene.add(group)
 
+const geometry = new THREE.BoxGeometry(1, 1, 1)
 const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1, 2, 2, 2),
+  // new THREE.BoxGeometry(1, 1, 1, 2, 2, 2),
+  // new THREE.SphereGeometry(1, 32, 32),
+  // new THREE.ConeGeometry(1, 1, 32),
+  // new THREE.TorusGeometry(1, 0.35, 32, 32),
+  geometry,
   new THREE.MeshBasicMaterial({ map: colorTexture }),
 )
 

@@ -3,14 +3,8 @@ import { OrbitControls } from 'three/addons'
 import doorImage from './../assets/Door_Wood_001_SD/Door_Wood_001_basecolor.jpg'
 import '../style/index.css'
 
-const image = new Image()
-
-const texture = new THREE.Texture(image)
-
-image.onload = () => {
-  texture.needsUpdate = true
-}
-image.src = doorImage
+const textureLoader = new THREE.TextureLoader()
+const texture = textureLoader.load(doorImage)
 
 const canvas = document.querySelector('canvas.webgl')
 

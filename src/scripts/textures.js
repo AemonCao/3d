@@ -6,15 +6,9 @@ import '../style/index.css'
 const textureLoader = new THREE.TextureLoader()
 const texture = textureLoader.load(
   doorImage,
-  (_texture) => {
-    console.log('Texture loaded', _texture, texture === _texture)
-  },
-  (_event) => {
-    console.log('Texture loading', _event)
-  },
-  (_error) => {
-    console.log('Texture error', _error)
-  },
+  _texture => console.log('Texture loaded', _texture, texture === _texture),
+  _event => console.log('Texture loading', _event),
+  _error => console.log('Texture error', _error),
 )
 
 const canvas = document.querySelector('canvas.webgl')

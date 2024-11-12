@@ -120,14 +120,14 @@ materialFolder
   .add(material, 'metalness')
   .min(0)
   .max(1)
-  .step(0.01)
+  .step(0.0001)
   .name('金属度')
 
 materialFolder
   .add(material, 'roughness')
   .min(0)
   .max(1)
-  .step(0.01)
+  .step(0.0001)
   .name('粗糙度')
 
 // Axes helper

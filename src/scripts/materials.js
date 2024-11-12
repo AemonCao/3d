@@ -1,3 +1,4 @@
+import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
 import doorAmbientOcclusionImage from './../assets/Door_Wood_001_SD/Door_Wood_001_ambientOcclusion.jpg'
@@ -25,6 +26,16 @@ const gradientTexture = textureLoader.load(gradientImage)
 gradientTexture.minFilter = THREE.NearestFilter
 gradientTexture.magFilter = THREE.NearestFilter
 gradientTexture.generateMipmaps = false
+
+const gui = new GUI({
+  closeFolders: true,
+  width: 300,
+})
+
+const debugObject = {
+  materialMetalness: 0.45,
+  materialRoughness: 0.65,
+}
 
 const canvas = document.querySelector('canvas.webgl')
 
@@ -73,8 +84,8 @@ scene.add(pointLight)
 // })
 
 const material = new THREE.MeshStandardMaterial({
-  metalness: 0.45,
-  roughness: 0.65,
+  metalness: debugObject.materialMetalness,
+  roughness: debugObject.materialRoughness,
 })
 
 const plane = new THREE.Mesh(
@@ -101,6 +112,23 @@ scene.add(plane, sphere, torus)
 const group = new THREE.Group()
 
 scene.add(group)
+
+const materialFolder = gui.addFolder('Material')
+materialFolder.open()
+
+materialFolder
+  .add(material, 'metalness')
+  .min(0)
+  .max(1)
+  .step(0.01)
+  .name('金属度')
+
+materialFolder
+  .add(material, 'roughness')
+  .min(0)
+  .max(1)
+  .step(0.01)
+  .name('粗糙度')
 
 // Axes helper
 const axesHelper = new THREE.AxesHelper(1)

@@ -30,11 +30,16 @@ gradientTexture.generateMipmaps = false
 const gui = new GUI({
   closeFolders: true,
   width: 300,
+  title: 'Controls 控制',
 })
 
 const debugObject = {
-  materialMetalness: 0.45,
-  materialRoughness: 0.65,
+  plane: {
+    subdivisions: 128,
+  },
+  material: {
+    normalScale: 1,
+  },
 }
 
 const canvas = document.querySelector('canvas.webgl')
@@ -84,25 +89,59 @@ scene.add(pointLight)
 // })
 
 const material = new THREE.MeshStandardMaterial({
-  metalness: debugObject.materialMetalness,
-  roughness: debugObject.materialRoughness,
+  wireframe: false,
+
+  map: doorColorTexture,
+
+  aoMap: doorAmbientOcclusionTexture,
+  aoMapIntensity: 1,
+
+  displacementMap: doorHeightTexture,
+  displacementScale: 0.05,
+
+  metalness: 0,
+  metalnessMap: doorMetallicTexture,
+
+  roughness: 1,
+  roughnessMap: doorRoughnessTexture,
+
+  normalMap: doorNormalTexture,
+  normalScale: new THREE.Vector2(debugObject.material.normalScale, debugObject.material.normalScale),
+
+  alphaMap: doorOpacityTexture,
+  transparent: true,
 })
 
 const plane = new THREE.Mesh(
-  new THREE.PlaneGeometry(1, 1),
+  new THREE.PlaneGeometry(1, 1, debugObject.plane.subdivisions, debugObject.plane.subdivisions),
   material,
 )
 
+plane.geometry.setAttribute(
+  'uv2',
+  new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2),
+)
+
 const sphere = new THREE.Mesh(
-  new THREE.SphereGeometry(0.5, 16, 16),
+  new THREE.SphereGeometry(0.5, 64, 64),
   material,
+)
+
+sphere.geometry.setAttribute(
+  'uv2',
+  new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2),
 )
 
 sphere.position.x = -1.5
 
 const torus = new THREE.Mesh(
-  new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+  new THREE.TorusGeometry(0.3, 0.2, 64, 128),
   material,
+)
+
+torus.geometry.setAttribute(
+  'uv2',
+  new THREE.BufferAttribute(torus.geometry.attributes.uv.array, 2),
 )
 
 torus.position.x = 1.5
@@ -113,22 +152,34 @@ const group = new THREE.Group()
 
 scene.add(group)
 
-const materialFolder = gui.addFolder('Material')
+const materialFolder = gui.addFolder('Material 材质')
 materialFolder.open()
 
-materialFolder
-  .add(material, 'metalness')
-  .min(0)
-  .max(1)
-  .step(0.0001)
-  .name('金属度')
+materialFolder.add(material, 'wireframe').name('线框')
 
-materialFolder
-  .add(material, 'roughness')
-  .min(0)
-  .max(1)
-  .step(0.0001)
-  .name('粗糙度')
+materialFolder.add(material, 'metalness').min(0).max(1).step(0.0001).name('金属度')
+
+materialFolder.add(material, 'roughness').min(0).max(1).step(0.0001).name('粗糙度')
+
+materialFolder.add(material, 'aoMapIntensity').min(0).max(10).step(0.01).name('环境光遮蔽强度')
+
+materialFolder.add(material, 'displacementScale').min(0).max(1).step(0.0001).name('位移强度')
+
+materialFolder.add(debugObject.material, 'normalScale').min(0).max(10).step(0.01).name('法线强度').onChange(() => {
+  material.normalScale.set(debugObject.material.normalScale, debugObject.material.normalScale)
+})
+
+const planeFolder = gui.addFolder('Plane 平面')
+planeFolder.open()
+
+planeFolder.add(debugObject.plane, 'subdivisions').min(1).max(1024).step(1).name('细分').onChange(() => {
+  plane.geometry.dispose()
+  plane.geometry = new THREE.PlaneGeometry(1, 1, debugObject.plane.subdivisions, debugObject.plane.subdivisions)
+  plane.geometry.setAttribute(
+    'uv2',
+    new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2),
+  )
+})
 
 // Axes helper
 const axesHelper = new THREE.AxesHelper(1)
@@ -172,13 +223,13 @@ const clock = new THREE.Clock()
 function tick() {
   const elapsedTime = clock.getElapsedTime()
 
-  sphere.rotation.y = elapsedTime * 0.1
-  plane.rotation.y = elapsedTime * 0.1
-  torus.rotation.y = elapsedTime * 0.1
+  // sphere.rotation.y = elapsedTime * 0.1
+  // plane.rotation.y = elapsedTime * 0.1
+  // torus.rotation.y = elapsedTime * 0.1
 
-  sphere.rotation.x = elapsedTime * 0.15
-  plane.rotation.x = elapsedTime * 0.15
-  torus.rotation.x = elapsedTime * 0.15
+  // sphere.rotation.x = elapsedTime * 0.15
+  // plane.rotation.x = elapsedTime * 0.15
+  // torus.rotation.x = elapsedTime * 0.15
 
   orbitControls.update()
   renderer.render(scene, camera)

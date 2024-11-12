@@ -243,13 +243,13 @@ const clock = new THREE.Clock()
 function tick() {
   const elapsedTime = clock.getElapsedTime()
 
-  // sphere.rotation.y = elapsedTime * 0.1
-  // plane.rotation.y = elapsedTime * 0.1
-  // torus.rotation.y = elapsedTime * 0.1
+  sphere.rotation.y = elapsedTime * 0.1
+  plane.rotation.y = elapsedTime * 0.1
+  torus.rotation.y = elapsedTime * 0.1
 
-  // sphere.rotation.x = elapsedTime * 0.15
-  // plane.rotation.x = elapsedTime * 0.15
-  // torus.rotation.x = elapsedTime * 0.15
+  sphere.rotation.x = elapsedTime * 0.15
+  plane.rotation.x = elapsedTime * 0.15
+  torus.rotation.x = elapsedTime * 0.15
 
   orbitControls.update()
   renderer.render(scene, camera)

@@ -13,3 +13,4 @@ cypress/downloads
 *.tar.gz
 *.rar
 *.7z
+*.gz

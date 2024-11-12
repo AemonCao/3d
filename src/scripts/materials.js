@@ -26,14 +26,14 @@ const matcapTexture = textureLoader.load(matcapImage)
 const gradientTexture = textureLoader.load(gradientImage)
 // 环境贴图
 const environmentMapTexture = cubeTextureLoader
-  .setPath('/src/assets/environmentMap/Park2/')
+  .setPath('/src/assets/environmentMap/0/')
   .load([
-    'posx.jpg',
-    'negx.jpg',
-    'posy.jpg',
-    'negy.jpg',
-    'posz.jpg',
-    'negz.jpg',
+    'px.png',
+    'nx.png',
+    'py.png',
+    'ny.png',
+    'pz.png',
+    'nz.png',
   ])
 
 gradientTexture.minFilter = THREE.NearestFilter
@@ -126,9 +126,10 @@ scene.add(pointLight)
 // })
 
 const material = new THREE.MeshStandardMaterial({
-  metalness: 0.7,
-  roughness: 0.2,
+  metalness: 1,
+  roughness: 0,
   envMap: environmentMapTexture,
+  side: THREE.DoubleSide,
 })
 
 const plane = new THREE.Mesh(

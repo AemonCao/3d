@@ -9,6 +9,33 @@ const sizes = {
 }
 
 const scene = new THREE.Scene()
+
+const material = new THREE.MeshBasicMaterial({
+  color: 0xFF0000,
+  wireframe: true,
+})
+
+const sphere = new THREE.Mesh(
+  new THREE.SphereGeometry(0.5, 16, 16),
+  material,
+)
+
+const plane = new THREE.Mesh(
+  new THREE.PlaneGeometry(1, 1),
+  material,
+)
+
+plane.position.x = -1.5
+
+const torus = new THREE.Mesh(
+  new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+  material,
+)
+
+torus.position.x = 1.5
+
+scene.add(sphere, plane, torus)
+
 const group = new THREE.Group()
 
 scene.add(group)

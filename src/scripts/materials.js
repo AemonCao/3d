@@ -13,6 +13,7 @@ import matcapImage from './../assets/matcaps/7.png'
 import './../style/index.css'
 
 const textureLoader = new THREE.TextureLoader()
+const cubeTextureLoader = new THREE.CubeTextureLoader()
 
 const doorColorTexture = textureLoader.load(doorColorImage)
 const doorOpacityTexture = textureLoader.load(doorOpacityImage)
@@ -23,6 +24,18 @@ const doorRoughnessTexture = textureLoader.load(doorRoughnessImage)
 const doorMetallicTexture = textureLoader.load(doorMetallicImage)
 const matcapTexture = textureLoader.load(matcapImage)
 const gradientTexture = textureLoader.load(gradientImage)
+// 环境贴图
+const environmentMapTexture = cubeTextureLoader
+  .setPath('/src/assets/environmentMap/Park2/')
+  .load([
+    'posx.jpg',
+    'negx.jpg',
+    'posy.jpg',
+    'negy.jpg',
+    'posz.jpg',
+    'negz.jpg',
+  ])
+
 gradientTexture.minFilter = THREE.NearestFilter
 gradientTexture.magFilter = THREE.NearestFilter
 gradientTexture.generateMipmaps = false
@@ -88,28 +101,34 @@ scene.add(pointLight)
 //   gradientMap: gradientTexture,
 // })
 
+// const material = new THREE.MeshStandardMaterial({
+//   wireframe: false,
+
+//   map: doorColorTexture,
+
+//   aoMap: doorAmbientOcclusionTexture,
+//   aoMapIntensity: 1,
+
+//   displacementMap: doorHeightTexture,
+//   displacementScale: 0.05,
+
+//   metalness: 0,
+//   metalnessMap: doorMetallicTexture,
+
+//   roughness: 1,
+//   roughnessMap: doorRoughnessTexture,
+
+//   normalMap: doorNormalTexture,
+//   normalScale: new THREE.Vector2(debugObject.material.normalScale, debugObject.material.normalScale),
+
+//   alphaMap: doorOpacityTexture,
+//   transparent: true,
+// })
+
 const material = new THREE.MeshStandardMaterial({
-  wireframe: false,
-
-  map: doorColorTexture,
-
-  aoMap: doorAmbientOcclusionTexture,
-  aoMapIntensity: 1,
-
-  displacementMap: doorHeightTexture,
-  displacementScale: 0.05,
-
-  metalness: 0,
-  metalnessMap: doorMetallicTexture,
-
-  roughness: 1,
-  roughnessMap: doorRoughnessTexture,
-
-  normalMap: doorNormalTexture,
-  normalScale: new THREE.Vector2(debugObject.material.normalScale, debugObject.material.normalScale),
-
-  alphaMap: doorOpacityTexture,
-  transparent: true,
+  metalness: 0.7,
+  roughness: 0.2,
+  envMap: environmentMapTexture,
 })
 
 const plane = new THREE.Mesh(

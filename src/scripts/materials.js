@@ -1,5 +1,30 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
+import doorAmbientOcclusionImage from './../assets/Door_Wood_001_SD/Door_Wood_001_ambientOcclusion.jpg'
+import doorColorImage from './../assets/Door_Wood_001_SD/Door_Wood_001_basecolor.jpg'
+import doorHeightImage from './../assets/Door_Wood_001_SD/Door_Wood_001_height.png'
+import doorMetallicImage from './../assets/Door_Wood_001_SD/Door_Wood_001_metallic.jpg'
+import doorNormalImage from './../assets/Door_Wood_001_SD/Door_Wood_001_normal.jpg'
+import doorOpacityImage from './../assets/Door_Wood_001_SD/Door_Wood_001_opacity.jpg'
+import doorRoughnessImage from './../assets/Door_Wood_001_SD/Door_Wood_001_roughness.jpg'
+import gradientImage from './../assets/gradients/5.jpg'
+import matcapImage from './../assets/matcaps/7.png'
+import './../style/index.css'
+
+const textureLoader = new THREE.TextureLoader()
+
+const doorColorTexture = textureLoader.load(doorColorImage)
+const doorOpacityTexture = textureLoader.load(doorOpacityImage)
+const doorAmbientOcclusionTexture = textureLoader.load(doorAmbientOcclusionImage)
+const doorHeightTexture = textureLoader.load(doorHeightImage)
+const doorNormalTexture = textureLoader.load(doorNormalImage)
+const doorRoughnessTexture = textureLoader.load(doorRoughnessImage)
+const doorMetallicTexture = textureLoader.load(doorMetallicImage)
+const matcapTexture = textureLoader.load(matcapImage)
+const gradientTexture = textureLoader.load(gradientImage)
+gradientTexture.minFilter = THREE.NearestFilter
+gradientTexture.magFilter = THREE.NearestFilter
+gradientTexture.generateMipmaps = false
 
 const canvas = document.querySelector('canvas.webgl')
 
@@ -10,22 +35,59 @@ const sizes = {
 
 const scene = new THREE.Scene()
 
-const material = new THREE.MeshBasicMaterial({
-  color: 0xFF0000,
-  wireframe: true,
-})
+// const material = new THREE.MeshBasicMaterial({
+//   alphaMap: doorOpacityTexture,
+//   map: doorColorTexture,
+//   side: THREE.DoubleSide,
+//   transparent: true,
+// })
 
-const sphere = new THREE.Mesh(
-  new THREE.SphereGeometry(0.5, 16, 16),
-  material,
-)
+// const material = new THREE.MeshNormalMaterial({
+//   flatShading: true,
+// })
+
+// const material = new THREE.MeshMatcapMaterial({
+//   matcap: matcapTexture,
+// })
+
+// const material = new THREE.MeshDepthMaterial()
+
+const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.5)
+scene.add(ambientLight)
+
+const pointLight = new THREE.PointLight(0xFFFFFF, 80)
+pointLight.position.x = 2
+pointLight.position.y = 3
+pointLight.position.z = 4
+scene.add(pointLight)
+
+// const material = new THREE.MeshLambertMaterial()
+
+// const material = new THREE.MeshPhongMaterial({
+//   shininess: 100,
+//   specular: 0x1188FF,
+// })
+
+// const material = new THREE.MeshToonMaterial({
+//   gradientMap: gradientTexture,
+// })
+
+const material = new THREE.MeshStandardMaterial({
+  metalness: 0.45,
+  roughness: 0.65,
+})
 
 const plane = new THREE.Mesh(
   new THREE.PlaneGeometry(1, 1),
   material,
 )
 
-plane.position.x = -1.5
+const sphere = new THREE.Mesh(
+  new THREE.SphereGeometry(0.5, 16, 16),
+  material,
+)
+
+sphere.position.x = -1.5
 
 const torus = new THREE.Mesh(
   new THREE.TorusGeometry(0.3, 0.2, 16, 32),
@@ -34,7 +96,7 @@ const torus = new THREE.Mesh(
 
 torus.position.x = 1.5
 
-scene.add(sphere, plane, torus)
+scene.add(plane, sphere, torus)
 
 const group = new THREE.Group()
 

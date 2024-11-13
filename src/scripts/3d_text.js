@@ -3,6 +3,9 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
 import '../style/index.css'
 
+// 用于生成字体文件
+// https://gero3.github.io/facetype.js/
+
 const canvas = document.querySelector('canvas.webgl')
 
 const gui = new GUI({
@@ -22,6 +25,13 @@ const group = new THREE.Group()
 
 scene.add(group)
 
+const cube = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0xFFFFFF }),
+)
+
+group.add(cube)
+
 const cubeFolder = gui.addFolder('Cube')
 cubeFolder.open()
 
@@ -30,6 +40,8 @@ const axesHelper = new THREE.AxesHelper(1)
 scene.add(axesHelper)
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+camera.position.x = 3
+camera.position.y = 3
 camera.position.z = 3
 camera.lookAt(group.position)
 scene.add(camera)

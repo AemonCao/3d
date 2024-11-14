@@ -13,6 +13,7 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.4.0",
     "@vercel/speed-insights": "^1.1.0",
     "gsap": "^3.12.5",
     "lil-gui": "^0.19.2",

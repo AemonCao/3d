@@ -2,7 +2,7 @@ import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { FontLoader, OrbitControls, TextGeometry } from 'three/addons'
 import typefaceFont from '~/assets/fonts/gentilis_regular.typeface.json'
-import matcapTextureImage from '~/assets/matcaps/3.png'
+import matcapTextureImage from '~/assets/matcaps/2.png'
 import '~/style/index.css'
 
 // 用于生成字体文件

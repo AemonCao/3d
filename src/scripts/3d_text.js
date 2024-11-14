@@ -32,14 +32,9 @@ const group = new THREE.Group()
 
 scene.add(group)
 
-// const cube = new THREE.Mesh(
-//   new THREE.BoxGeometry(1, 1, 1),
-//   new THREE.MeshBasicMaterial({ color: 0xFFFFFF }),
-// )
-
-// group.add(cube)
-
 const textGroup = new THREE.Group()
+
+// 这里不能使用 fontLoader.load 来加载，因为 typefaceFont 已经是字体文件了
 const font = fontLoader.parse(typefaceFont)
 
 const textGeometry = new TextGeometry(
@@ -89,10 +84,6 @@ scene.add(textGroup)
 
 const cubeFolder = gui.addFolder('Cube')
 cubeFolder.open()
-
-// Axes helper
-// const axesHelper = new THREE.AxesHelper(1)
-// scene.add(axesHelper)
 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 2

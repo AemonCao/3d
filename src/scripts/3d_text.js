@@ -2,6 +2,7 @@ import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { FontLoader, OrbitControls, TextGeometry } from 'three/addons'
 import '../style/index.css'
+import typefaceFont from '/src/assets/fonts/helvetiker_regular.typeface.json'
 import matcapTextureImage from '/src/assets/matcaps/3.png'
 
 // 用于生成字体文件
@@ -40,7 +41,7 @@ scene.add(group)
 
 const textGroup = new THREE.Group()
 fontLoader.load(
-  '/src/assets/fonts/helvetiker_regular.typeface.json',
+  typefaceFont,
   (font) => {
     const textGeometry = new TextGeometry(
       'Aemon Cao',

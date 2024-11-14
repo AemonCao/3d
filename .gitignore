@@ -14,3 +14,4 @@ cypress/downloads
 *.rar
 *.7z
 *.gz
+.vercel

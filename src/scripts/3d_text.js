@@ -2,6 +2,7 @@ import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { FontLoader, OrbitControls, TextGeometry } from 'three/addons'
 import '../style/index.css'
+import matcapTextureImage from '/src/assets/matcaps/3.png'
 
 // 用于生成字体文件
 // https://gero3.github.io/facetype.js/
@@ -9,7 +10,7 @@ import '../style/index.css'
 const textureLoader = new THREE.TextureLoader()
 const fontLoader = new FontLoader()
 
-const matcapTexture = textureLoader.load('/src/assets/matcaps/3.png')
+const matcapTexture = textureLoader.load(matcapTextureImage)
 
 const canvas = document.querySelector('canvas.webgl')
 

@@ -1,6 +1,6 @@
 import GUI from 'lil-gui'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/addons'
+import { OrbitControls, RectAreaLightHelper } from 'three/addons'
 import '../style/index.css'
 
 /**
@@ -18,21 +18,59 @@ const scene = new THREE.Scene()
 /**
  * Lights
  */
-const ambientLight = new THREE.AmbientLight(0xFFFFFF, 1.5)
+const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.5)
 scene.add(ambientLight)
 
-const pointLight = new THREE.PointLight(0xFFFFFF, 50)
-pointLight.position.x = 2
-pointLight.position.y = 3
-pointLight.position.z = 4
+const directionalLight = new THREE.DirectionalLight(0x00FFFC, 0.3)
+directionalLight.position.set(1, 0.25, 0)
+scene.add(directionalLight)
+
+const hemisphereLight = new THREE.HemisphereLight(0xFF0000, 0x0000FF, 0.3)
+scene.add(hemisphereLight)
+
+const pointLight = new THREE.PointLight(0xFF9000, 0.5, 10, 2)
+pointLight.position.set(1, -0.5, 1)
 scene.add(pointLight)
+
+const rectAreaLight = new THREE.RectAreaLight(0x4E00FF, 2, 1, 1)
+rectAreaLight.position.set(-1.5, 0, 1.5)
+rectAreaLight.lookAt(new THREE.Vector3())
+scene.add(rectAreaLight)
+
+const spotLight = new THREE.SpotLight(0x78FF00, 0.5, 10, Math.PI * 0.1, 0.25, 1)
+spotLight.position.set(0, 2, 3)
+scene.add(spotLight)
+scene.add(spotLight.target)
+spotLight.target.position.x = -0.75
+
+/**
+ * LightHelpers
+ */
+const hemisphereLightHelper = new THREE.HemisphereLightHelper(hemisphereLight, 0.2)
+scene.add(hemisphereLightHelper)
+
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.2)
+scene.add(directionalLightHelper)
+
+const pointLightHelper = new THREE.PointLightHelper(pointLight, 0.2)
+scene.add(pointLightHelper)
+
+const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+scene.add(spotLightHelper)
+
+window.requestAnimationFrame(() => {
+  spotLightHelper.update()
+})
+
+const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight)
+scene.add(rectAreaLightHelper)
 
 /**
  * Objects
  */
 // Material
 const material = new THREE.MeshStandardMaterial()
-material.roughness = 0.4
+material.roughness = 0
 
 // Objects
 const sphere = new THREE.Mesh(

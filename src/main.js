@@ -1,1 +1,1 @@
-import '~/scripts/lights.js'
+import '~/scripts/shadows.js'

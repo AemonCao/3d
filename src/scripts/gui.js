@@ -2,7 +2,6 @@ import gsap from 'gsap'
 import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
-import '../style/index.css'
 
 const canvas = document.querySelector('canvas.webgl')
 

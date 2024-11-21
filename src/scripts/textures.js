@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
 import diamondOreImage from './../assets/MC/钻石矿石.png'
-import '../style/index.css'
 
 const loadingManager = new THREE.LoadingManager()
 loadingManager.onStart = (_url, _loaded, _total) => console.log('Loading started')

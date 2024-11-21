@@ -3,7 +3,6 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
 // import bakedShadowImage from '~/assets/textures/bakedShadow.jpg'
 import simpleShadowImage from '~/assets/textures/simpleShadow.jpg'
-import '../style/index.css'
 
 // TextureLoader
 const textureLoader = new THREE.TextureLoader()

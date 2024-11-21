@@ -1,7 +1,6 @@
 import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { OrbitControls, RectAreaLightHelper } from 'three/addons'
-import '../style/index.css'
 
 /**
  * Base

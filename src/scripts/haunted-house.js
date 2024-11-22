@@ -324,6 +324,27 @@ window.addEventListener('resize', () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+// 阴影
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+directionalLight.castShadow = true
+ghost1.castShadow = true
+ghost2.castShadow = true
+ghost3.castShadow = true
+
+walls.castShadow = true
+walls.receiveShadow = true
+
+roof.castShadow = true
+floor.receiveShadow = true
+
+door.receiveShadow = true
+
+graves.children.forEach((grave) => {
+  grave.castShadow = true
+  grave.receiveShadow = true
+})
+
 /**
  * Animate
  */

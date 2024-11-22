@@ -1,4 +1,4 @@
-import GUI from 'lil-gui'
+// import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
 import { Timer } from 'three/addons/misc/Timer.js'
@@ -30,7 +30,7 @@ import wallNormalTextureImage from '~/assets/wall/castle_brick_broken_06_1k/cast
  * Base
  */
 // Debug
-const gui = new GUI()
+// const gui = new GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')

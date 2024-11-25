@@ -1,6 +1,6 @@
 // import GUI from 'lil-gui'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/addons'
+import { OrbitControls, Sky } from 'three/addons'
 import { Timer } from 'three/addons/misc/Timer.js'
 import bushARMTextureImage from '~/assets/bush/leaves_forest_ground_1k/leaves_forest_ground_arm_1k.jpg'
 import bushColorTextureImage from '~/assets/bush/leaves_forest_ground_1k/leaves_forest_ground_diff_1k.jpg'
@@ -26,6 +26,7 @@ import roofNormalTextureImage from '~/assets/roof/roof_slates_02_1k/roof_slates_
 import wallARMTextureImage from '~/assets/wall/castle_brick_broken_06_1k/castle_brick_broken_06_arm_1k.jpg'
 import wallColorTextureImage from '~/assets/wall/castle_brick_broken_06_1k/castle_brick_broken_06_diff_1k.jpg'
 import wallNormalTextureImage from '~/assets/wall/castle_brick_broken_06_1k/castle_brick_broken_06_nor_gl_1k.jpg'
+
 /**
  * Base
  */
@@ -366,6 +367,19 @@ ghost2.shadow.camera.far = 10
 ghost3.shadow.mapSize.width = 256
 ghost3.shadow.mapSize.height = 256
 ghost3.shadow.camera.far = 10
+
+// Sky
+const sky = new Sky()
+sky.scale.setScalar(100)
+sky.material.uniforms.turbidity.value = 10
+sky.material.uniforms.rayleigh.value = 3
+sky.material.uniforms.mieCoefficient.value = 0.1
+sky.material.uniforms.mieDirectionalG.value = 0.95
+sky.material.uniforms.sunPosition.value.set(0.3, -0.038, -0.95)
+scene.add(sky)
+
+// Fog
+scene.fog = new THREE.FogExp2('#04343d', 0.1)
 
 /**
  * Animate

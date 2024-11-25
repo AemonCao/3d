@@ -2,7 +2,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
 import { Timer } from 'three/addons/misc/Timer.js'
-import { mx_bilerp_1 } from 'three/src/nodes/materialx/lib/mx_noise.js'
 import bushARMTextureImage from '~/assets/bush/leaves_forest_ground_1k/leaves_forest_ground_arm_1k.jpg'
 import bushColorTextureImage from '~/assets/bush/leaves_forest_ground_1k/leaves_forest_ground_diff_1k.jpg'
 import bushNormalTextureImage from '~/assets/bush/leaves_forest_ground_1k/leaves_forest_ground_nor_gl_1k.jpg'

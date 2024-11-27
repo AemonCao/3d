@@ -52,11 +52,13 @@ const particlesMaterial = new THREE.PointsMaterial({
 /**
  * Test cube
  */
-// const cube = new THREE.Mesh(
-//   new THREE.BoxGeometry(1, 1, 1),
-//   new THREE.MeshBasicMaterial(),
-// )
-// scene.add(cube)
+const cube = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({
+    color: '#000000',
+  }),
+)
+scene.add(cube)
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)

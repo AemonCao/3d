@@ -1,2 +1,2 @@
-import '~/scripts/haunted-house.js'
+import '~/scripts/particles.js'
 import '~/style/index.css'

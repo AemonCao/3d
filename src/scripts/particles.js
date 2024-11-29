@@ -1,7 +1,7 @@
 import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
-import particlesTextureImage from '~/assets/textures/particles/2.png'
+import particlesTextureImage from '~/assets/textures/particles/4.png'
 
 /**
  * Base
@@ -23,7 +23,7 @@ const particlesTexture = textureLoader.load(particlesTextureImage)
 
 const particlesGeometry = new THREE.BufferGeometry()
 
-const count = 20000
+const count = 50000
 const positions = new Float32Array(count * 3)
 const colors = new Float32Array(count * 3)
 for (let i = 0; i < count * 3; i++) {
@@ -52,13 +52,13 @@ const particlesMaterial = new THREE.PointsMaterial({
 /**
  * Test cube
  */
-const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial({
-    color: '#000000',
-  }),
-)
-scene.add(cube)
+// const cube = new THREE.Mesh(
+//   new THREE.BoxGeometry(1, 1, 1),
+//   new THREE.MeshBasicMaterial({
+//     color: '#000000',
+//   }),
+// )
+// scene.add(cube)
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)

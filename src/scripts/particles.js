@@ -122,7 +122,7 @@ function tick() {
     const distance = Math.sqrt(x * x + z * z)
 
     // 基于距离和时间生成水波纹效果
-    particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(distance * 3 - elapsedTime * 3) * 0.5
+    particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(distance * 3 - elapsedTime * 3) * 0.2
   }
 
   particlesGeometry.attributes.position.needsUpdate = true

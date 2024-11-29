@@ -1,2 +1,2 @@
-import '~/scripts/particles.js'
+import '~/scripts/galaxy.js'
 import '~/style/index.css'

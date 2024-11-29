@@ -117,7 +117,12 @@ function tick() {
   for (let i = 0; i < count; i++) {
     const i3 = i * 3
     const x = particlesGeometry.attributes.position.array[i3]
-    particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(elapsedTime + x)
+    const z = particlesGeometry.attributes.position.array[i3 + 2]
+    // 计算粒子到中心的距离
+    const distance = Math.sqrt(x * x + z * z)
+
+    // 基于距离和时间生成水波纹效果
+    particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(distance * 3 - elapsedTime * 3) * 0.5
   }
 
   particlesGeometry.attributes.position.needsUpdate = true

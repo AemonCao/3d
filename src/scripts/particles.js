@@ -1,13 +1,6 @@
-import GUI from 'lil-gui'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons'
 import particlesTextureImage from '~/assets/textures/particles/4.png'
-
-/**
- * Base
- */
-// Debug
-const gui = new GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')

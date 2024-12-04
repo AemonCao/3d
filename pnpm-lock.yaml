@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      cannon:
+        specifier: ^0.6.2
+        version: 0.6.2
       gsap:
         specifier: ^3.12.5
         version: 3.12.5
@@ -789,6 +792,9 @@ packages:
 
   caniuse-lite@1.0.30001674:
     resolution: {integrity: sha512-jOsKlZVRnzfhLojb+Ykb+gyUSp9Xb57So+fAiFlLzzTKpqg8xxSav0e40c8/4F/v9N8QSvrRRaLeVzQbLqomYw==}
+
+  cannon@0.6.2:
+    resolution: {integrity: sha512-n/7wWSXr8KOSvjad2x0fJHgpMepKjOKi+NdSnjfYyijoDBZnp4JQKgPcpv28jlXoWM+N9zVYU09J0A6Qxx+Y7w==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -3309,6 +3315,8 @@ snapshots:
   callsites@3.1.0: {}
 
   caniuse-lite@1.0.30001674: {}
+
+  cannon@0.6.2: {}
 
   ccount@2.0.1: {}
 

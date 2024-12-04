@@ -1,2 +1,2 @@
-import '~/scripts/scroll-based-animation.js'
+import '~/scripts/physics.js'
 import '~/style/index.css'

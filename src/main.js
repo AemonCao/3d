@@ -1,2 +1,2 @@
-import '~/scripts/physics.js'
+import '~/scripts/imported-models.js'
 import '~/style/index.css'

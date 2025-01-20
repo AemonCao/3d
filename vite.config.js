@@ -1,5 +1,6 @@
 import path from 'node:path'
 import { defineConfig } from 'vite'
+import gltf from 'vite-plugin-gltf'
 
 export default defineConfig({
   base: './',
@@ -8,4 +9,7 @@ export default defineConfig({
       '~/': `${path.resolve(__dirname, 'src')}/`,
     },
   },
+  plugins: [
+    gltf(),
+  ],
 })

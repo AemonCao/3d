@@ -1,7 +1,7 @@
 import GUI from 'lil-gui'
 import * as THREE from 'three'
-import { GLTFLoader, OrbitControls } from 'three/addons'
-import duckModel from '~/assets/models/Duck/glTF/Duck.gltf'
+import { DRACOLoader, GLTFLoader, OrbitControls } from 'three/addons'
+import duckModel from '~/assets/models/Duck/glTF-Draco/Duck.gltf'
 
 console.log(duckModel)
 /**
@@ -18,11 +18,18 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Loader
+const dracoLoader = new DRACOLoader()
+dracoLoader.setDecoderPath('/draco/')
+
 const glTFLoader = new GLTFLoader()
+glTFLoader.setDRACOLoader(dracoLoader)
 glTFLoader.load(
   duckModel,
   (gltf) => {
-    scene.add(gltf.scene.children[0])
+    console.log(gltf.scene)
+    while (gltf.scene.children.length) {
+      scene.add(gltf.scene.children[0])
+    }
   },
 )
 

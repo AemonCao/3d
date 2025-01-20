@@ -22,14 +22,7 @@ const glTFLoader = new GLTFLoader()
 glTFLoader.load(
   duckModel,
   (gltf) => {
-    console.log('success', gltf)
     scene.add(gltf.scene.children[0])
-  },
-  () => {
-    console.log('progress')
-  },
-  () => {
-    console.log('error')
   },
 )
 

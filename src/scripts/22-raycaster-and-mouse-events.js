@@ -41,6 +41,7 @@ scene.add(object1, object2, object3)
  * Raycaster
  */
 const raycaster = new THREE.Raycaster()
+let currentIntersect = null
 
 /**
  * Sizes
@@ -55,6 +56,22 @@ const mouse = new THREE.Vector2()
 window.addEventListener('mousemove', (_event) => {
   mouse.x = _event.clientX / sizes.width * 2 - 1
   mouse.y = -(_event.clientY / sizes.height * 2 - 1)
+})
+
+window.addEventListener('click', (_event) => {
+  if (currentIntersect) {
+    switch (currentIntersect.object) {
+      case object1:
+        console.log('click on object 1')
+        break
+      case object2:
+        console.log('click on object 2')
+        break
+      case object3:
+        console.log('click on object 3')
+        break
+    }
+  }
 })
 
 /**
@@ -96,7 +113,6 @@ window.addEventListener('resize', () => {
  * Animate
  */
 const clock = new THREE.Clock()
-
 function tick() {
   const elapsedTime = clock.getElapsedTime()
 
@@ -116,6 +132,19 @@ function tick() {
 
   for (const intersect of intersects) {
     intersect.object.material.color.set('#0000ff')
+  }
+
+  if (intersects.length) {
+    if (!currentIntersect) {
+      console.log('mouse enter')
+    }
+    currentIntersect = intersects[0]
+  }
+  else {
+    if (currentIntersect) {
+      console.log('mouse leave')
+    }
+    currentIntersect = null
   }
 
   // Update controls

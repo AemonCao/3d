@@ -38,12 +38,24 @@ object3.position.x = 2
 scene.add(object1, object2, object3)
 
 /**
+ * Raycaster
+ */
+const raycaster = new THREE.Raycaster()
+
+/**
  * Sizes
  */
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 }
+
+const mouse = new THREE.Vector2()
+
+window.addEventListener('mousemove', (_event) => {
+  mouse.x = _event.clientX / sizes.width * 2 - 1
+  mouse.y = -(_event.clientY / sizes.height * 2 - 1)
+})
 
 /**
  * Camera
@@ -87,7 +99,24 @@ const clock = new THREE.Clock()
 
 function tick() {
   const elapsedTime = clock.getElapsedTime()
-  console.log(elapsedTime)
+
+  object1.position.y = Math.sin(elapsedTime * 0.3) * 1.5
+  object2.position.y = Math.sin(elapsedTime * 0.8) * 1.5
+  object3.position.y = Math.sin(elapsedTime * 1.4) * 1.5
+
+  raycaster.setFromCamera(mouse, camera)
+
+  const objectToTest = [object1, object2, object3]
+
+  const intersects = raycaster.intersectObjects(objectToTest)
+
+  for (const object of objectToTest) {
+    object.material.color.set('#ff0000')
+  }
+
+  for (const intersect of intersects) {
+    intersect.object.material.color.set('#0000ff')
+  }
 
   // Update controls
   controls.update()
